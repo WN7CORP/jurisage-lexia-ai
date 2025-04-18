@@ -46,7 +46,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
   return <div className="w-full">
       <div className="flex flex-col space-y-4 p-4 shadow-neo bg-gray-950 rounded-lg">
-        <h2 className="text-lg font-medium">Pesquisar Artigo</h2>
+        <h2 className="font-semibold text-lg">Pesquisar Artigo</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2">

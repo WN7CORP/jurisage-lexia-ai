@@ -1,17 +1,19 @@
-
 import React, { useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { Menu, Search, BookOpen, Star, Settings, ArrowUp, Scale, Glasses } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-
 interface LayoutProps {
   children: React.ReactNode;
 }
-
-const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { fontSize, setFontSize } = useApp();
+const Layout: React.FC<LayoutProps> = ({
+  children
+}) => {
+  const {
+    fontSize,
+    setFontSize
+  } = useApp();
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Handle scroll events to show/hide the scroll-to-top button
@@ -23,7 +25,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         setShowScrollTop(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -32,7 +33,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: "smooth"
     });
   };
 
@@ -42,15 +43,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       setFontSize(fontSize + 1);
     }
   };
-
   const decreaseFontSize = () => {
     if (fontSize > 12) {
       setFontSize(fontSize - 1);
     }
   };
-
-  return (
-    <div className="flex min-h-screen flex-col bg-background">
+  return <div className="flex min-h-screen flex-col bg-background">
       {/* Header */}
       <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-border bg-background/70 backdrop-blur-md px-4">
         <div className="flex items-center space-x-2">
@@ -68,8 +66,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="flex items-center gap-2">
             <Scale className="h-6 w-6 text-primary animate-pulse-light" />
             <h1 className="font-serif text-xl font-semibold tracking-tight">
-              <span className="text-primary">WAD</span>
-              <span className="text-foreground">MECON</span>
+              <span className="text-primary font-bold">VADE</span>
+              <span className="text-foreground">MECUM</span>
               <span className="text-primary">2025</span>
               <span className="text-xs ml-1 text-muted-foreground">PRO</span>
             </h1>
@@ -80,13 +78,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={decreaseFontSize}
-                  disabled={fontSize <= 12}
-                  className="text-muted-foreground hover:text-foreground"
-                >
+                <Button variant="ghost" size="icon" onClick={decreaseFontSize} disabled={fontSize <= 12} className="text-muted-foreground hover:text-foreground">
                   <Glasses className="h-5 w-5" />
                   <span className="sr-only">Diminuir fonte</span>
                 </Button>
@@ -100,13 +92,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={increaseFontSize}
-                  disabled={fontSize >= 24}
-                  className="text-muted-foreground hover:text-foreground"
-                >
+                <Button variant="ghost" size="icon" onClick={increaseFontSize} disabled={fontSize >= 24} className="text-muted-foreground hover:text-foreground">
                   <Glasses className="h-5 w-5 scale-110" />
                   <span className="sr-only">Aumentar fonte</span>
                 </Button>
@@ -131,25 +117,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </main>
 
       {/* Scroll to top button */}
-      {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-6 right-6 p-3 rounded-full bg-primary text-primary-foreground shadow-neo animate-fade-in z-50 hover:bg-accent transition-colors"
-          aria-label="Voltar ao topo"
-        >
+      {showScrollTop && <button onClick={scrollToTop} className="fixed bottom-6 right-6 p-3 rounded-full bg-primary text-primary-foreground shadow-neo animate-fade-in z-50 hover:bg-accent transition-colors" aria-label="Voltar ao topo">
           <ArrowUp className="h-5 w-5" />
-        </button>
-      )}
-    </div>
-  );
+        </button>}
+    </div>;
 };
 
 // Side menu component
 const SideMenu = () => {
-  const { laws } = useApp();
-
-  return (
-    <div className="flex flex-col h-full py-4">
+  const {
+    laws
+  } = useApp();
+  return <div className="flex flex-col h-full py-4">
       <h2 className="px-4 text-lg font-medium text-sidebar-foreground mb-6">
         Menu
       </h2>
@@ -178,19 +157,11 @@ const SideMenu = () => {
           Legislações
         </h3>
         <div className="space-y-1 px-1 max-h-[calc(100vh-250px)] overflow-y-auto scrollbar-thin">
-          {laws.map((law) => (
-            <Button
-              key={law.id}
-              variant="ghost"
-              className="w-full justify-start px-2 py-1 h-auto text-sm font-normal"
-            >
+          {laws.map(law => <Button key={law.id} variant="ghost" className="w-full justify-start px-2 py-1 h-auto text-sm font-normal">
               {law.title}
-            </Button>
-          ))}
+            </Button>)}
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Layout;
